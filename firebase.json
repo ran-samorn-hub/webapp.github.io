@@ -1,0 +1,13 @@
+{
+    "hosting": {
+        "rewrites": [
+            {
+                "source": "**",
+                "destination": "/index.html"
+            }
+        ],
+        "ignore": [
+            "firebase-debug.log"
+        ]
+    }
+}

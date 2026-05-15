@@ -16,47 +16,52 @@
     the `--base-href` argument provided to `flutter build`.
   -->
   <base href="/">
+  <!-- <base href="../"> -->
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
 
   <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="flutter_web_app">
+  <meta name="apple-mobile-web-app-title" content="web_push_notification">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png" />
 
-  <title>flutter_web_app</title>
+  <title>Notifciation Message</title>
   <link rel="manifest" href="manifest.json">
   <script src="flutter.js" defer></script>
-  <!-- <script type="application/javascript" src="/assets/packages/flutter_inappwebview_web/assets/web/web_support.js" defer> -->
-  </script>
 </head>
 
 <body>
-
   <script src="flutter_bootstrap.js" async></script>
   <script>
-    window.addEventListener('load', function (ev) {
 
+    window.addEventListener('load', async function (ev) {
+      try {
+        await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+        console.log('Service Worker registered');
+      } catch (e) {
+        console.error('Service Worker registration failed:', e);
+      }
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         },
+
         onEntrypointLoaded: function (engineInitializer) {
-          engineInitializer.initializeEngine().then(function (appRunner) {
+          engineInitializer.initializeEngine({
+            useColorEmoji: true
+          }).then(function (appRunner) {
             appRunner.runApp();
           });
         }
       });
     });
   </script>
-
-
 </body>
 
 </html>
